@@ -6,14 +6,19 @@ const router = express.Router()
 const { verificarToken } = require('../middlewares/AutenticacaoMiddleware')
 const perfilService = require('../services/PerfilService')
 
-router.get('/', verificarToken, perfilService.buscarUltimos)
+// router.get('/', verificarToken, perfilService.buscarUltimos)
 
-router.get('/:id', perfilService.buscarPorId)
+// router.get('/:id', perfilService.buscarPorId)
 
-router.post('', perfilService.cadastrar)
+router.post('', async (req, res) => {
+  const resposta = await perfilService.cadastrar(req.body)
+  res.json(resposta)
+})
 
-router.put('/:id', perfilService.editar)
+// router.post('/conexao', perfilService.criarConexao)
 
-router.post('/conexao', perfilService.criarConexao)
+// router.put('/:id', perfilService.editar)
+
+// router.delete('/:id', perfilService.remover)
 
 module.exports = router
